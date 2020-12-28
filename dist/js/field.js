@@ -273,10 +273,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (_this.componentIsDependency(component)) {
                     if (component.selectedResourceId !== undefined) {
                         // BelongsTo field
-                        component.$watch('selectedResourceId', _this.dependencyWatcher, { immediate: true });
+                        console.log('BelongsTo 2');
+                        console.log(component.selectedResource);
+                        console.log(component);
+                        component.$watch('selectedResource', _this.dependencyWatcher, { immediate: true });
                         _this.dependencyWatcher(component.selectedResourceId);
                     } else if (component.value !== undefined) {
                         // Text based fields
+                        console.log('Value');
+                        console.log(component.value);
                         component.$watch('value', _this.dependencyWatcher, { immediate: true });
                         _this.dependencyWatcher(component.value);
                     }
@@ -300,8 +305,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (value === _this2.dependsOnValue) {
                     return;
                 }
-
-                _this2.dependsOnValue = value;
+                if (value.value != undefined) _this2.dependsOnValue = value.value;else _this2.dependsOnValue = value;
 
                 _this2.clearSelection();
                 _this2.$nextTick(function () {

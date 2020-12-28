@@ -51,7 +51,7 @@ class BelongsToDependency extends BelongsTo
     {
         $query = parent::buildAssociatableQuery($request, $withTrashed);
 
-        if($request->has('dependsOnValue')) {
+        if($request->has('dependsOnValue') && $this->meta['dependsOnKey']) {
             $query->where($this->meta['dependsOnKey'], $request->dependsOnValue);
         }
 
@@ -65,11 +65,16 @@ class BelongsToDependency extends BelongsTo
      * @param  string $tableKey
      * @return $this
      */
-    public function dependsOn($dependsOnField, $tableKey)
+    public function dependsOn($dependsOnField)
     {
         return $this->withMeta([
             'dependsOn' => $dependsOnField,
-            'dependsOnKey' => $tableKey,
         ]);
+    }
+
+    public function dependsOnKey($tableKey){
+        return $this->withMeta([
+        'dependsOnKey' => $tableKey]
+        );
     }
 }
