@@ -24,20 +24,13 @@ export default {
                 if (this.componentIsDependency(component)) {
                     if (component.selectedResourceId !== undefined) {
                         // BelongsTo field
-                        console.log('BelongsTo');
-                        console.log(component.selectedResourceId);
-                        component.$watch('selectedResourceId', this.dependencyWatcher, {immediate: true});
+                        console.log('BelongsTo 2');
+                        console.log(component.selectedResource);
+                        console.log(component);
+                        component.$watch('selectedResource', this.dependencyWatcher, {immediate: true});
                         this.dependencyWatcher(component.selectedResourceId);
                     }
                     else
-                    if (component.selectedResource !== undefined) {
-                        // BelongsTo field
-                        console.log('Searchable_Belongs_To');
-                        console.log(component.selectedResource);
-                        console.log(component.selectedResource.id);
-                        component.$watch('selectedResource', this.dependencyWatcher, {immediate: true});
-                        this.dependencyWatcher(component.selectedResource.id);
-                    } else
                     if (component.value !== undefined) {
                         // Text based fields
                         console.log('Value');
@@ -63,8 +56,10 @@ export default {
                 if (value === this.dependsOnValue) {
                     return;
                 }
-
-                this.dependsOnValue = value;
+                if(value.value != undefined)
+                    this.dependsOnValue = value.value;
+                else
+                    this.dependsOnValue = value;
 
                 this.clearSelection();
                 this.$nextTick(() => {
