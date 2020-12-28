@@ -24,10 +24,24 @@ export default {
                 if (this.componentIsDependency(component)) {
                     if (component.selectedResourceId !== undefined) {
                         // BelongsTo field
+                        console.log('BelongsTo');
+                        console.log(component.selectedResourceId);
                         component.$watch('selectedResourceId', this.dependencyWatcher, {immediate: true});
                         this.dependencyWatcher(component.selectedResourceId);
-                    } else if (component.value !== undefined) {
+                    }
+                    else
+                    if (component.selectedResource !== undefined) {
+                        // BelongsTo field
+                        console.log('Searchable_Belongs_To');
+                        console.log(component.selectedResource);
+                        console.log(component.selectedResource.id);
+                        component.$watch('selectedResource', this.dependencyWatcher, {immediate: true});
+                        this.dependencyWatcher(component.selectedResource.id);
+                    } else
+                    if (component.value !== undefined) {
                         // Text based fields
+                        console.log('Value');
+                        console.log(component.value);
                         component.$watch('value', this.dependencyWatcher, {immediate: true});
                         this.dependencyWatcher(component.value);
                     }
